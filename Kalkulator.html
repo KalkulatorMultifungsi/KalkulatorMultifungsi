@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8">
+    <title>Kalkulator Umum: Bangun & Listrik</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #f4f6f8;
+        margin: 0;
+        padding: 20px;
+        color: #333;
+      }
+  
+      h2 {
+        text-align: center;
+        color: #0077b6;
+      }
+  
+      label {
+        display: block;
+        margin: 10px 0 5px;
+        font-weight: 500;
+      }
+  
+      select, input[type="number"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        box-sizing: border-box;
+      }
+  
+      button {
+        background-color: #0077b6;
+        color: white;
+        border: none;
+        padding: 10px 16px;
+        border-radius: 6px;
+        margin-top: 15px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+  
+      button:hover {
+        background-color: #005f86;
+      }
+  
+      .container {
+        max-width: 600px;
+        background: white;
+        padding: 20px;
+        margin: 30px auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      }
+  
+      #gambarBangun img {
+        display: block;
+        margin: 20px auto;
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+  
+      #hasil p {
+        font-weight: bold;
+        background: #e9f5ff;
+        padding: 10px;
+        border-left: 5px solid #0077b6;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+<body>
+  <div class="container">
+    <h2>Kalkulator Multifungsi</h2>
+
+    <label>Pilih Jenis Kalkulasi:</label>
+    <select id="jenis" onchange="tampilkanMenu()">
+      <option value=""> Pilih Jenis </option>
+      <option value="bangun">Bangun Ruang</option>
+      <option value="datar">Bangun Datar</option>
+      <option value="Harga">Harga Listrik</option>
+      <option value="listrik">Daya Listrik</option>
+    </select>
+
+    <div id="menuKalkulasi" style="margin-top: 20px;"></div>
+    <div id="hasil" style="margin-top: 20px;"></div>
+  </div>
+
+  <script>
+    function satuanLabel(type) {
+      const satuan = document.getElementById("satuan")?.value || "cm";
+      return satuan + (type === "luas" ? "²" : "³");
+    }
+
+    function tampilkanMenu() {
+      const jenis = document.getElementById("jenis").value;
+      const menu = document.getElementById("menuKalkulasi");
+      const hasil = document.getElementById("hasil");
+      hasil.innerHTML = "";
+      
+      
+
+      if (jenis === "bangun") {
+        menu.innerHTML = `
+          <label>Pilih Bangun:</label><br>
+          <select id="bangun" onchange="tampilkanFormBangun()">
+            <option value="">Pilih Bangun</option>
+            <option value="kubus">Kubus</option>
+            <option value="balok">Balok</option>
+            <option value="prisma">Prisma</option>
+            <option value="limas">Limas</option>
+            <option value="tabung">Tabung</option>
+            <option value="kerucut">Kerucut</option>
+            <option value="bola">Bola</option>
+          </select><br><br>
+
+          <label>Pilih Satuan:</label><br>
+          <select id="satuan">
+            <option value="cm">cm</option>
+            <option value="m">m</option>
+          </select>
+
+          <div id="formInput" style="margin-top:20px;"></div>
+          <div id="gambarBangun" style="margin-top: 20px;"></div>
+
+        `;
+      } else if (jenis === "Harga") {
+        menu.innerHTML = `
+          <label>Jumlah Elektronik:</label><br><input type="number" id="Jumlah"><br>
+          <label>Daya:</label><br><input type="number" id="Daya"><br><br>
+
+          <label>Lama Penggunaan:</label><br><input type="number" id="Lama"><br>
+          <label>Tarif per KWH:</label><br><input type="number" id="Tarif"><br>
+
+          <button onclick="hitungHarga()">Hitung</button>
+        `;
+      } 
+      else if (jenis === "listrik") {
+        menu.innerHTML = `
+          <label>Arus (Ampere):</label><br><input type="number" id="Arus"><br>
+          <label>Hambatan(Ohm):</label><br><input type="number" id="Hambatan"><br><br>
+
+          <button onclick="hitunglistrik()">Hitung</button>
+        `;
+      }
+      else if (jenis === "datar") {
+  menu.innerHTML = `
+    <label>Pilih Bangun Datar:</label><br>
+    <select id="bangunDatar" onchange="tampilkanFormDatar()">
+      <option value="">Pilih Bangun</option>
+      <option value="persegi">Persegi</option>
+      <option value="persegiPanjang">Persegi Panjang</option>
+      <option value="segitiga">Segitiga</option>
+      <option value="lingkaran">Lingkaran</option>
+      <option value="trapesium">Trapesium</option>
+    </select><br><br>
+
+    <label>Pilih Satuan:</label><br>
+    <select id="satuan">
+      <option value="cm">cm</option>
+      <option value="m">m</option>
+    </select>
+
+    <div id="formInput" style="margin-top:20px;"></div>
+    <div id="gambarBangun" style="margin-top: 20px;"></div>
+  `;
+
+      } else {
+        menu.innerHTML = "";
+
+        
+      }
+    }
+
+    function tampilkanFormBangun() {
+      const b = document.getElementById("bangun").value;
+      const form = document.getElementById("formInput");
+      const hasil = document.getElementById("hasil");
+      const gambar = {
+  kubus: "kubus.webp",
+  balok: "Balok.png",
+  prisma: "Prisma.avif",
+  limas: "limas.jpeg",
+  tabung: "Tabung.png",
+  kerucut: "Kerucut.jpeg",
+  bola: "Bola.png",
+  
+};
+
+const gambarDiv = document.getElementById("gambarBangun");
+if (gambar[b]) {
+  gambarDiv.innerHTML = `<img src="${gambar[b]}" alt="${b}" style="width:200px;height:auto;">`;
+} else {
+  gambarDiv.innerHTML = "";
+}
+
+
+
+      hasil.innerHTML = "";
+
+      let html = "";
+
+      switch (b) {
+        case "kubus":
+          html = `<label>Sisi:</label><br><input type="number" id="sisi"><br><br><button onclick="hitungKubus()">Hitung</button>`;
+          break;
+        case "balok":
+          html = `
+            <label>Panjang:</label><br><input type="number" id="panjang"><br>
+            <label>Lebar:</label><br><input type="number" id="lebar"><br>
+            <label>Tinggi:</label><br><input type="number" id="tinggi"><br><br>
+            <button onclick="hitungBalok()">Hitung</button>
+          `;
+          break;
+        case "prisma":
+          html = `
+            <label>Alas Segitiga:</label><br><input type="number" id="alas"><br>
+            <label>Tinggi Segitiga:</label><br><input type="number" id="tinggiSegitiga"><br>
+            <label>Tinggi Prisma:</label><br><input type="number" id="tinggiPrisma"><br><br>
+            <button onclick="hitungPrisma()">Hitung</button>
+          `;
+          break;
+        case "limas":
+          html = `
+            <label>Panjang Alas:</label><br><input type="number" id="panjangAlas"><br>
+            <label>Lebar Alas:</label><br><input type="number" id="lebarAlas"><br>
+            <label>Tinggi Limas:</label><br><input type="number" id="tinggiLimas"><br><br>
+            <button onclick="hitungLimas()">Hitung</button>
+          `;
+          break;
+        case "tabung":
+          html = `
+            <label>Jari-jari:</label><br><input type="number" id="jari"><br>
+            <label>Tinggi:</label><br><input type="number" id="tinggiTabung"><br><br>
+            <button onclick="hitungTabung()">Hitung</button>
+          `;
+          break;
+        case "kerucut":
+          html = `
+            <label>Jari-jari:</label><br><input type="number" id="jariKerucut"><br>
+            <label>Tinggi:</label><br><input type="number" id="tinggiKerucut"><br><br>
+            <button onclick="hitungKerucut()">Hitung</button>
+          `;
+          break;
+          case "bola":
+  html = `
+    <label>Jari-jari:</label><br><input type="number" id="jariBola"><br><br>
+    <button onclick="hitungBola()">Hitung</button>
+  `;
+  break;
+
+      }
+
+      form.innerHTML = html;
+    }
+
+    function tampilkanFormDatar() {
+  const b = document.getElementById("bangunDatar").value;
+  const form = document.getElementById("formInput");
+  const hasil = document.getElementById("hasil");
+  const gambarDiv = document.getElementById("gambarBangun");
+
+  hasil.innerHTML = "";
+
+  const gambar = {
+    persegi: "Persegi.png",
+    persegiPanjang: "Persegi Panjang.png",
+    segitiga: "Segitiga.png",
+    lingkaran: "Lingkaran.jpeg",
+    trapesium: "Trapesium.png",
+  };
+
+  if (gambar[b]) {
+    gambarDiv.innerHTML = `<img src="${gambar[b]}" alt="${b}" style="width:200px;height:auto;">`;
+  } else {
+    gambarDiv.innerHTML = "";
+  }
+
+  let html = "";
+
+  switch (b) {
+    case "persegi":
+      html = `<label>Sisi:</label><br><input type="number" id="sisi"><br><br><button onclick="hitungPersegi()">Hitung</button>`;
+      break;
+    case "persegiPanjang":
+      html = `
+        <label>Panjang:</label><br><input type="number" id="panjang"><br>
+        <label>Lebar:</label><br><input type="number" id="lebar"><br><br>
+        <button onclick="hitungPersegiPanjang()">Hitung</button>
+      `;
+      break;
+    case "segitiga":
+      html = `
+        <label>Alas:</label><br><input type="number" id="alas"><br>
+        <label>Tinggi:</label><br><input type="number" id="tinggi"><br><br>
+        <button onclick="hitungSegitiga()">Hitung</button>
+      `;
+      break;
+    case "lingkaran":
+      html = `<label>Jari-jari:</label><br><input type="number" id="jari"><br><br><button onclick="hitungLingkaran()">Hitung</button>`;
+      break;
+    case "trapesium":
+      html = `
+        <label>Sisi Atas:</label><br><input type="number" id="atas"><br>
+        <label>Sisi Bawah:</label><br><input type="number" id="bawah"><br>
+        <label>Tinggi:</label><br><input type="number" id="tinggi"><br><br>
+        <button onclick="hitungTrapesium()">Hitung</button>
+      `;
+      break;
+  }
+
+  form.innerHTML = html;
+}
+
+
+
+    function tampilkanHasil(volume, luas) {
+      const satuanVol = satuanLabel("volume");
+      const satuanLuas = satuanLabel("luas");
+      document.getElementById("hasil").innerHTML = `
+        <p><strong>Volume:</strong> ${volume.toFixed(2)} ${satuanVol}</p>
+        <p><strong>Luas Permukaan:</strong> ${luas.toFixed(2)} ${satuanLuas}</p>
+      `;
+    }
+
+    function konversiNilai(nilai) {
+      const satuan = document.getElementById("satuan")?.value || "cm";
+      return satuan === "cm" ? nilai : nilai * 100;
+    }
+
+    function hitungKubus() {
+      const s = konversiNilai(parseFloat(document.getElementById("sisi").value));
+      const volume = s ** 3;
+      const luas = 6 * (s ** 2);
+      tampilkanHasil(volume, luas);
+    }
+
+    function hitungBalok() {
+      const p = konversiNilai(parseFloat(document.getElementById("panjang").value));
+      const l = konversiNilai(parseFloat(document.getElementById("lebar").value));
+      const t = konversiNilai(parseFloat(document.getementById("tinggi").value));
+      const volume = p * l * t;
+      const luas = 2 * (p * l + p * t + l * t);
+      tampilkanHasil(volume, luas);
+    }
+
+    function hitungPrisma() {
+      const a = konversiNilai(parseFloat(document.getElementById("alas").value));
+      const ts = konversiNilai(parseFloat(document.getElementById("tinggiSegitiga").value));
+      const tp = konversiNilai(parseFloat(document.getElementById("tinggiPrisma").value));
+      const luasAlas = 0.5 * a * ts;
+      const volume = luasAlas * tp;
+      const luas = 2 * luasAlas + 3 * a * tp;
+      tampilkanHasil(volume, luas);
+    }
+
+    function hitungLimas() {
+      const p = konversiNilai(parseFloat(document.getElementById("panjangAlas").value));
+      const l = konversiNilai(parseFloat(document.getElementById("lebarAlas").value));
+      const t = konversiNilai(parseFloat(document.getElementById("tinggiLimas").value));
+      const luasAlas = p * l;
+      const volume = (1/3) * luasAlas * t;
+      const luas = luasAlas + 2 * (p * t / 2) + 2 * (l * t / 2);
+      tampilkanHasil(volume, luas);
+    }
+
+    function hitungTabung() {
+      const r = konversiNilai(parseFloat(document.getElementById("jari").value));
+      const t = konversiNilai(parseFloat(document.getElementById("tinggiTabung").value));
+      const phi = 3.14;
+      const volume = phi * r * r * t;
+      const luas = 2 * phi * r * (r + t);
+      tampilkanHasil(volume, luas);
+    }
+
+    function hitungKerucut() {
+      const r = konversiNilai(parseFloat(document.getElementById("jariKerucut").value));
+      const t = konversiNilai(parseFloat(document.getElementById("tinggiKerucut").value));
+      const phi = 3.14;
+      const s = Math.sqrt(r * r + t * t);
+      const volume = (1/3) * phi * r * r * t;
+      const luas = phi * r * (r + s);
+      tampilkanHasil(volume, luas);
+    }
+
+    function hitungBola() {
+  const r = konversiNilai(parseFloat(document.getElementById("jariBola").value));
+  const phi = 3.14;
+  const volume = (4/3) * phi * r ** 3;
+  const luas = 4 * phi * r ** 2;
+  tampilkanHasil(volume, luas);
+}
+function tampilkanHasilDatar(luas, keliling) {
+  const satuan = document.getElementById("satuan")?.value || "cm";
+  document.getElementById("hasil").innerHTML = `
+    <p><strong>Luas:</strong> ${luas.toFixed(2)} ${satuan}²</p>
+    <p><strong>Keliling:</strong> ${keliling.toFixed(2)} ${satuan}</p>
+  `;
+}
+
+function hitungPersegi() {
+  const s = konversiNilai(parseFloat(document.getElementById("sisi").value));
+  const luas = s * s;
+  const keliling = 4 * s;
+  tampilkanHasilDatar(luas, keliling);
+}
+
+function hitungPersegiPanjang() {
+  const p = konversiNilai(parseFloat(document.getElementById("panjang").value));
+  const l = konversiNilai(parseFloat(document.getElementById("lebar").value));
+  const luas = p * l;
+  const keliling = 2 * (p + l);
+  tampilkanHasilDatar(luas, keliling);
+}
+
+function hitungSegitiga() {
+  const a = konversiNilai(parseFloat(document.getElementById("alas").value));
+  const t = konversiNilai(parseFloat(document.getElementById("tinggi").value));
+  const luas = 0.5 * a * t;
+  const keliling = a * 3; // asumsi segitiga sama sisi
+  tampilkanHasilDatar(luas, keliling);
+}
+
+function hitungLingkaran() {
+  const r = konversiNilai(parseFloat(document.getElementById("jari").value));
+  const phi = 3.14;
+  const luas = phi * r * r;
+  const keliling = 2 * phi * r;
+  tampilkanHasilDatar(luas, keliling);
+}
+
+function hitungTrapesium() {
+  const a = konversiNilai(parseFloat(document.getElementById("atas").value));
+  const b = konversiNilai(parseFloat(document.getElementById("bawah").value));
+  const t = konversiNilai(parseFloat(document.getElementById("tinggi").value));
+  const luas = 0.5 * (a + b) * t;
+  const keliling = a + b + 2 * t; // asumsi sisi miring = tinggi
+  tampilkanHasilDatar(luas, keliling);
+}
+
+
+    function hitungHarga() {
+      const Jumlah = parseFloat(document.getElementById("Jumlah").value);
+      const Daya = parseFloat(document.getElementById("Daya").value);
+      const Lama = parseFloat(document.getElementById("Lama").value);
+      const Tarif = parseFloat(document.getElementById("Tarif").value);
+
+      const totalTarif = (Daya * Jumlah * Lama / 1000) * Tarif;
+
+      document.getElementById("hasil").innerHTML = `
+        <p><strong>Total Tarif Listrik:</strong> Rp ${totalTarif.toFixed(2)}</p>
+      `;
+    }
+
+    function hitunglistrik() {
+      const Arus = parseFloat(document.getElementById("Arus").value);
+      const Hambatan = parseFloat(document.getElementById("Hambatan").value);
+
+      const totalListrik = (Arus * Hambatan / 1000) ;
+
+      document.getElementById("hasil").innerHTML = `
+        <p><strong>Total Daya Listrik:</strong>${totalListrik.toFixed(1)}</p>
+      `;
+    }
+
+  </script>
+</body>
+</html>
