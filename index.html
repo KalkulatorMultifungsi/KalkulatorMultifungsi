@@ -92,9 +92,13 @@
 
   <script>
     function satuanLabel(type) {
-      const satuan = document.getElementById("satuan")?.value || "cm";
-      return satuan + (type === "luas" ? "²" : "³");
-    }
+  const satuan = document.getElementById("satuan")?.value || "cm";
+
+  if (satuan === "m") {
+    return "cm" + (type === "luas" ? "²" : "³");
+  }
+  return satuan + (type === "luas" ? "²" : "³");
+}
 
     function tampilkanMenu() {
       const jenis = document.getElementById("jenis").value;
@@ -396,11 +400,15 @@ if (gambar[b]) {
 }
 function tampilkanHasilDatar(luas, keliling) {
   const satuan = document.getElementById("satuan")?.value || "cm";
+  const satuanLuas = satuan === "m" ? "cm²" : satuan + "²";
+  const satuanKeliling = satuan === "m" ? "cm" : satuan;
+
   document.getElementById("hasil").innerHTML = `
-    <p><strong>Luas:</strong> ${luas.toFixed(2)} ${satuan}²</p>
-    <p><strong>Keliling:</strong> ${keliling.toFixed(2)} ${satuan}</p>
+    <p><strong>Luas:</strong> ${luas.toFixed(2)} ${satuanLuas}</p>
+    <p><strong>Keliling:</strong> ${keliling.toFixed(2)} ${satuanKeliling}</p>
   `;
 }
+  
 
 function hitungPersegi() {
   const s = konversiNilai(parseFloat(document.getElementById("sisi").value));
