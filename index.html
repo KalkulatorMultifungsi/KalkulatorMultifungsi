@@ -210,7 +210,11 @@ if (gambar[b]) {
 
       switch (b) {
         case "kubus":
-          html = `<label>Sisi:</label><br><input type="number" id="sisi"><br><br><button onclick="hitungKubus()">Hitung</button>`;
+          html = `
+          <label>Sisi:</label><br><input type="number" id="sisi"><br><br><button onclick="hitungKubus()">Hitung</button>
+          <label>Rumus: Volume = S³ / Luas Permukaan = 6S²</label><br>
+          `;
+          
           break;
         case "balok":
           html = `
@@ -218,6 +222,7 @@ if (gambar[b]) {
             <label>Lebar:</label><br><input type="number" id="lebar"><br>
             <label>Tinggi:</label><br><input type="number" id="tinggi"><br><br>
             <button onclick="hitungBalok()">Hitung</button>
+            <label>Rumus: Volume = P x L x T / Luas Permukaan = 2(PL + PT + LT)</label><br>
           `;
           break;
         case "prisma":
@@ -226,6 +231,7 @@ if (gambar[b]) {
             <label>Tinggi Segitiga:</label><br><input type="number" id="tinggiSegitiga"><br>
             <label>Tinggi Prisma:</label><br><input type="number" id="tinggiPrisma"><br><br>
             <button onclick="hitungPrisma()">Hitung</button>
+            <label>Rumus: Volume = Luas Alas × Tinggi Prisma / Luas Permukaan =  (2 × Luas Alas) + (Keliling Alas × Tinggi Prisma). </label><br>
           `;
           break;
         case "limas":
