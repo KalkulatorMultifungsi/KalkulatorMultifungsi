@@ -3,83 +3,187 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Kalkulator Umum: Bangun & Listrik</title>
+    <title>Kalkulator Multifungsi</title>
     <style>
-      body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: #f4f6f8;
-        margin: 0;
-        padding: 20px;
-        color: #333;
-      }
-  
-      h2 {
-        text-align: center;
-        color: #0077b6;
-      }
-  
-      label {
-        display: block;
-        margin: 10px 0 5px;
-        font-weight: 500;
-      }
-  
-      select, input[type="number"] {
-        width: 100%;
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        box-sizing: border-box;
-      }
-  
-      button {
-        background-color: #0077b6;
-        color: white;
-        border: none;
-        padding: 10px 16px;
-        border-radius: 6px;
-        margin-top: 15px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
-  
-      button:hover {
-        background-color: #005f86;
-      }
-  
-      .container {
-        max-width: 600px;
-        background: white;
-        padding: 20px;
-        margin: 30px auto;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      }
-  
-      #gambarBangun img {
-        display: block;
-        margin: 20px auto;
-        max-width: 100%;
-        height: auto;
-        border-radius: 8px;
-      }
-  
-      #hasil p {
-        font-weight: bold;
-        background: #e9f5ff;
-        padding: 10px;
-        border-left: 5px solid #0077b6;
-        border-radius: 4px;
-      }
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #eef2f5;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+h2 {
+  text-align: center;
+  color: #0077b6;
+  margin-bottom: 30px;
+}
+
+label {
+  display: block;
+  margin: 10px 0 6px;
+  font-weight: 600;
+  color: #444;
+}
+
+select, input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+select:focus, input[type="number"]:focus {
+  border-color: #0077b6;
+  box-shadow: 0 0 5px rgba(0, 119, 182, 0.2);
+  outline: none;
+}
+
+button {
+  background-color: #0077b6;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+button:hover {
+  background-color: #005f86;
+  transform: scale(1.02);
+}
+
+.container {
+  max-width: 600px;
+  background: white;
+  padding: 30px 25px;
+  margin: 40px auto;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+#gambarBangun img {
+  display: block;
+  margin: 20px auto;
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+#hasil p {
+  font-weight: bold;
+  background: #e9f5ff;
+  padding: 12px;
+  border-left: 6px solid #0077b6;
+  border-radius: 6px;
+  margin: 0;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  background-color: #0077b6;
+  color: white;
+  padding: 12px 24px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+}
+
+.logo img {
+  height: 42px;
+  margin-right: 14px;
+}
+
+.logo span {
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 20px 16px;
+    margin: 20px 10px;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .logo span {
+    font-size: 18px;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+* {
+  transition: all 0.3s ease;
+}
+
+select:hover, input[type="number"]:hover {
+  border-color: #0077b6;
+  box-shadow: 0 0 5px rgba(0, 119, 182, 0.1);
+}
+
+.container {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.container:hover {
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+#hasil p {
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+#hasil p:hover {
+  background: #d8f0ff;
+  transform: scale(1.01);
+  cursor: default;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+
     </style>
   </head>
 <body>
+
+  <div class="topbar">
+    <a href="index.html" class="logo">
+      <img src="logo.png" alt="Logo">
+      <span>Kalkulator Multifungsi</span>
+    </a>
+  </div>
+  
   <div class="container">
     <h2>Kalkulator Multifungsi</h2>
 
     <label>Pilih Jenis Kalkulasi:</label>
     <select id="jenis" onchange="tampilkanMenu()">
-      <option value=""> Pilih Jenis </option>
+      <option value=""disabled selected hidden> Pilih Jenis </option>
       <option value="bangun">Bangun Ruang</option>
       <option value="datar">Bangun Datar</option>
       <option value="Harga">Harga Listrik</option>
@@ -112,7 +216,7 @@
         menu.innerHTML = `
           <label>Pilih Bangun:</label><br>
           <select id="bangun" onchange="tampilkanFormBangun()">
-            <option value="">Pilih Bangun</option>
+            <option value=""disabled selected hidden>Pilih Bangun</option>
             <option value="kubus">Kubus</option>
             <option value="balok">Balok</option>
             <option value="prisma">Prisma</option>
@@ -156,7 +260,7 @@
   menu.innerHTML = `
     <label>Pilih Bangun Datar:</label><br>
     <select id="bangunDatar" onchange="tampilkanFormDatar()">
-      <option value="">Pilih Bangun</option>
+      <option value=""disabled selected hidden>Pilih Bangun</option>
       <option value="persegi">Persegi</option>
       <option value="persegiPanjang">Persegi Panjang</option>
       <option value="segitiga">Segitiga</option>
