@@ -141,14 +141,15 @@
           <label>Tarif per KWH:</label><br><input type="number" id="Tarif"><br>
 
           <button onclick="hitungHarga()">Hitung</button>
+          <label>Rumus: Tarif Listrik = (Daya x Jumlah x Lama / 1000) * Tarif </label><br>
         `;
       } 
       else if (jenis === "listrik") {
         menu.innerHTML = `
           <label>Arus (Ampere):</label><br><input type="number" id="Arus"><br>
-          <label>Hambatan(Ohm):</label><br><input type="number" id="Hambatan"><br><br>
-
+          <label>Hambatan(Ohm):</label><br><input type="number" id="Hambatan"><br>
           <button onclick="hitunglistrik()">Hitung</button>
+          <label>Rumus: Daya Listrik = (Arus x Hambatan) / 1000</label><br>
         `;
       }
       else if (jenis === "datar") {
@@ -231,7 +232,7 @@ if (gambar[b]) {
             <label>Tinggi Segitiga:</label><br><input type="number" id="tinggiSegitiga"><br>
             <label>Tinggi Prisma:</label><br><input type="number" id="tinggiPrisma"><br><br>
             <button onclick="hitungPrisma()">Hitung</button>
-            <label>Rumus: Volume = Luas Alas × Tinggi Prisma / Luas Permukaan =  (2 × Luas Alas) + (Keliling Alas × Tinggi Prisma). </label><br>
+            <label>Rumus: Volume = Luas Alas × Tinggi Prisma / Luas Permukaan =  (2 × Luas Alas) + (Keliling Alas × Tinggi Prisma)</label><br>
           `;
           break;
         case "limas":
@@ -240,6 +241,7 @@ if (gambar[b]) {
             <label>Lebar Alas:</label><br><input type="number" id="lebarAlas"><br>
             <label>Tinggi Limas:</label><br><input type="number" id="tinggiLimas"><br><br>
             <button onclick="hitungLimas()">Hitung</button>
+            <label>Rumus: Volume = 1/3 x luas alas x tinggi / Luas Permukaan = LA x LS </label><br>
           `;
           break;
         case "tabung":
@@ -247,19 +249,22 @@ if (gambar[b]) {
             <label>Jari-jari:</label><br><input type="number" id="jari"><br>
             <label>Tinggi:</label><br><input type="number" id="tinggiTabung"><br><br>
             <button onclick="hitungTabung()">Hitung</button>
+            <label>Rumus: Volume = π x R² x T / Luas Permukaan = 2 x π x R x (R + T) </label><br>
           `;
           break;
         case "kerucut":
           html = `
-            <label>Jari-jari:</label><br><input type="number" id="jariKerucut"><br>
-            <label>Tinggi:</label><br><input type="number" id="tinggiKerucut"><br><br>
-            <button onclick="hitungKerucut()">Hitung</button>
+          <label>Jari-jari:</label><br><input type="number" id="jariKerucut"><br>
+          <label>Tinggi:</label><br><input type="number" id="tinggiKerucut"><br><br>
+          <button onclick="hitungKerucut()">Hitung</button>
+          <label>Rumus: Volume = 1/3 x π x R² x T  / Luas Permukaan = (π x R²) + (π x R x S) </label><br>
           `;
           break;
           case "bola":
-  html = `
-    <label>Jari-jari:</label><br><input type="number" id="jariBola"><br><br>
-    <button onclick="hitungBola()">Hitung</button>
+            html = `
+            <label>Jari-jari:</label><br><input type="number" id="jariBola"><br><br>
+            <button onclick="hitungBola()">Hitung</button>
+            <label>Rumus: Volume = (4/3) × π × R³ / Luas Permukaan = 4 × π × R² </label><br>
   `;
   break;
 
@@ -294,13 +299,17 @@ if (gambar[b]) {
 
   switch (b) {
     case "persegi":
-      html = `<label>Sisi:</label><br><input type="number" id="sisi"><br><br><button onclick="hitungPersegi()">Hitung</button>`;
+      html = `
+      <label>Sisi:</label><br><input type="number" id="sisi"><br><br><button onclick="hitungPersegi()">Hitung</button>
+      <label>Rumus: Luas = S × S / Keliling = 4 × S </label><br>
+      `;
       break;
     case "persegiPanjang":
       html = `
         <label>Panjang:</label><br><input type="number" id="panjang"><br>
         <label>Lebar:</label><br><input type="number" id="lebar"><br><br>
         <button onclick="hitungPersegiPanjang()">Hitung</button>
+        <label>Rumus: Luas = P × L / Keliling = 2 × (P + L) </label><br>
       `;
       break;
     case "segitiga":
@@ -308,10 +317,14 @@ if (gambar[b]) {
         <label>Alas:</label><br><input type="number" id="alas"><br>
         <label>Tinggi:</label><br><input type="number" id="tinggi"><br><br>
         <button onclick="hitungSegitiga()">Hitung</button>
+        <label>Rumus: Luas = (1/2) × A × T / Keliling = s1 + s2 + s3 </label><br>
       `;
       break;
     case "lingkaran":
-      html = `<label>Jari-jari:</label><br><input type="number" id="jari"><br><br><button onclick="hitungLingkaran()">Hitung</button>`;
+      html = `
+      <label>Jari-jari:</label><br><input type="number" id="jari"><br><br><button onclick="hitungLingkaran()">Hitung</button>
+      <label>Rumus: Luas = π × R² / Keliling = 2 × π × R </label><br>
+      `;
       break;
     case "trapesium":
       html = `
@@ -319,6 +332,7 @@ if (gambar[b]) {
         <label>Sisi Bawah:</label><br><input type="number" id="bawah"><br>
         <label>Tinggi:</label><br><input type="number" id="tinggi"><br><br>
         <button onclick="hitungTrapesium()">Hitung</button>
+        <label>Rumus: Luas =  (1/2) × (A + B) × T / Keliling = s1 + s2 + s3 + s4 </label><br>
       `;
       break;
   }
