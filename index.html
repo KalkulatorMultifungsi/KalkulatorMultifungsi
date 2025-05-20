@@ -2,175 +2,182 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Kalkulator Multifungsi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #eef2f5;
-  margin: 0;
-  padding: 0;
-  color: #333;
-}
+      body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #0077b6, #90e0ef);
+        margin: 0;
+        padding: 0;
+        color: #333;
+      }
 
-h2 {
-  text-align: center;
-  color: #0077b6;
-  margin-bottom: 30px;
-}
+      h2 {
+        text-align: center;
+        color: #0077b6;
+        margin-bottom: 30px;
+        font-weight: 600;
+      }
 
-label {
-  display: block;
-  margin: 10px 0 6px;
-  font-weight: 600;
-  color: #444;
-}
+      label {
+        display: block;
+        margin: 10px 0 6px;
+        font-weight: 600;
+        color: #444;
+      }
 
-select, input[type="number"] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-sizing: border-box;
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
+      select, input[type="number"] {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-sizing: border-box;
+        transition: border-color 0.3s, box-shadow 0.3s;
+        font-size: 16px;
+      }
 
-select:focus, input[type="number"]:focus {
-  border-color: #0077b6;
-  box-shadow: 0 0 5px rgba(0, 119, 182, 0.2);
-  outline: none;
-}
+      select:focus, input[type="number"]:focus {
+        border-color: #0077b6;
+        box-shadow: 0 0 8px rgba(0, 119, 182, 0.3);
+        outline: none;
+      }
 
-button {
-  background-color: #0077b6;
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 8px;
-  margin-top: 20px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.3s ease, transform 0.2s;
-}
+      button {
+        background-color: #0077b6;
+        color: white;
+        border: none;
+        padding: 14px 20px;
+        border-radius: 8px;
+        margin-top: 20px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 16px;
+        transition: background-color 0.3s ease, transform 0.2s;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
 
-button:hover {
-  background-color: #005f86;
-  transform: scale(1.02);
-}
+      button:hover {
+        background-color: #005f86;
+        transform: scale(1.05);
+      }
 
-.container {
-  max-width: 600px;
-  background: white;
-  padding: 30px 25px;
-  margin: 40px auto;
-  border-radius: 14px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-}
+      button:active {
+        transform: scale(0.98);
+      }
 
-#gambarBangun img {
-  display: block;
-  margin: 20px auto;
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
-}
+      .container {
+        max-width: 600px;
+        background: white;
+        padding: 30px 25px;
+        margin: 40px auto;
+        border-radius: 14px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        animation: fadeIn 0.5s ease-in-out;
+      }
 
-#hasil p {
-  font-weight: bold;
-  background: #e9f5ff;
-  padding: 12px;
-  border-left: 6px solid #0077b6;
-  border-radius: 6px;
-  margin: 0;
-}
+      #gambarBangun img {
+        display: block;
+        margin: 20px auto;
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
 
-.topbar {
-  display: flex;
-  align-items: center;
-  background-color: #0077b6;
-  color: white;
-  padding: 12px 24px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
+      #hasil p {
+        font-weight: bold;
+        background: #e9f5ff;
+        padding: 12px;
+        border-left: 6px solid #0077b6;
+        border-radius: 6px;
+        margin: 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
 
-.logo {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: white;
-}
+      .topbar {
+        display: flex;
+        align-items: center;
+        background-color: #0077b6;
+        color: white;
+        padding: 12px 24px;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
 
-.logo img {
-  height: 42px;
-  margin-right: 14px;
-}
+      .logo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: white;
+      }
 
-.logo span {
-  font-size: 22px;
-  font-weight: bold;
-  letter-spacing: 0.5px;
-}
+      .logo img {
+        height: 42px;
+        margin-right: 14px;
+      }
 
-@media (max-width: 600px) {
-  .container {
-    padding: 20px 16px;
-    margin: 20px 10px;
-  }
+      .logo span {
+        font-size: 22px;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+      }
 
-  .topbar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+      @media (max-width: 600px) {
+        .container {
+          padding: 20px 16px;
+          margin: 20px 10px;
+        }
 
-  .logo span {
-    font-size: 18px;
-  }
+        .topbar {
+          flex-direction: column;
+          align-items: flex-start;
+        }
 
-  button {
-    width: 100%;
-  }
-}
+        .logo span {
+          font-size: 18px;
+        }
 
-* {
-  transition: all 0.3s ease;
-}
+        button {
+          width: 100%;
+        }
+      }
 
-select:hover, input[type="number"]:hover {
-  border-color: #0077b6;
-  box-shadow: 0 0 5px rgba(0, 119, 182, 0.1);
-}
+      * {
+        transition: all 0.3s ease;
+      }
 
-.container {
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
+      select:hover, input[type="number"]:hover {
+        border-color: #0077b6;
+        box-shadow: 0 0 5px rgba(0, 119, 182, 0.1);
+      }
 
-.container:hover {
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
-  transform: translateY(-2px);
-}
+      .container:hover {
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+        transform: translateY(-2px);
+      }
 
-#hasil p {
-  transition: background 0.3s ease, transform 0.2s ease;
-}
+      #hasil p:hover {
+        background: #d8f0ff;
+        transform: scale(1.01);
+        cursor: default;
+      }
 
-#hasil p:hover {
-  background: #d8f0ff;
-  transform: scale(1.01);
-  cursor: default;
-}
-
-button:active {
-  transform: scale(0.98);
-}
-
-
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
     </style>
   </head>
 <body>
-
   <div class="topbar">
     <a href="index.html" class="logo">
       <img src="logo.png" alt="Logo">
@@ -180,16 +187,14 @@ button:active {
   
   <div class="container">
     <h2>Kalkulator Multifungsi</h2>
-
     <label>Pilih Jenis Kalkulasi:</label>
     <select id="jenis" onchange="tampilkanMenu()">
-      <option value=""disabled selected hidden> Pilih Jenis </option>
+      <option value="" disabled selected hidden>Pilih Jenis</option>
       <option value="bangun">Bangun Ruang</option>
       <option value="datar">Bangun Datar</option>
       <option value="Harga">Harga Listrik</option>
       <option value="listrik">Daya Listrik</option>
     </select>
-
     <div id="menuKalkulasi" style="margin-top: 20px;"></div>
     <div id="hasil" style="margin-top: 20px;"></div>
   </div>
